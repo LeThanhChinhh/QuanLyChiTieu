@@ -16,6 +16,9 @@
     <div class="blob blob-2" style="background: #0f172a;"></div>
     
     <div class="app-container">
+        <!-- Mobile Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <h2>
@@ -56,7 +59,10 @@
 
         <main class="main-content" id="mainContent">
             <header class="header">
-                <div class="header-left">
+                <div class="header-left flex items-center">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="ri-menu-line"></i>
+                    </button>
                     <div class="header-title-wrapper">
                         <h2 class="header-title">
                             @yield('title', 'Admin Dashboard') <span class="badge badge-admin">ADMIN</span>

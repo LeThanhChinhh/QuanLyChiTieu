@@ -190,6 +190,53 @@
             {{ $transactions->appends(request()->query())->links('custom.pagination') }}
         </div>
     </div>
+
+    <!-- Mobile View -->
+    <div class="transactions-mobile">
+        @foreach($transactions as $transaction)
+            <div class="transaction-card-mobile" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 16px; padding: 1rem; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.5);">
+                <div class="transaction-card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <div class="flex items-center gap-3">
+                        <div class="category-icon" style="background-color: {{ $transaction->category->color ?? '#ccc' }}20; color: {{ $transaction->category->color ?? '#ccc' }}; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                            <i class="{{ $transaction->category->icon ?? 'ri-price-tag-3-line' }}" style="font-size: 1.2rem;"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: #1F2937;">{{ $transaction->category->name ?? 'Chưa phân loại' }}</div>
+                            <div style="font-size: 0.8rem; color: #6B7280;">{{ \Carbon\Carbon::parse($transaction->transaction_date)->format('d/m/Y') }}</div>
+                        </div>
+                    </div>
+                    <div class="transaction-amount {{ $transaction->type }}" style="font-weight: 700; font-size: 1rem;">
+                        @if($transaction->type == 'expense') - @endif
+                        @if($transaction->type == 'income') + @endif
+                        {{ number_format($transaction->amount, 0, ',', '.') }}₫
+                    </div>
+                </div>
+                
+                @if($transaction->description)
+                <div style="font-size: 0.9rem; color: #4B5563; margin-bottom: 1rem; padding: 0.5rem; background: rgba(0,0,0,0.02); border-radius: 8px;">
+                    {{ $transaction->description }}
+                </div>
+                @endif
+
+                <div class="flex justify-end gap-2 mt-2">
+                    <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-sm btn-secondary" style="padding: 0.4rem 0.8rem;">
+                        <i class="ri-edit-line"></i> Sửa
+                    </a>
+                    <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger" style="padding: 0.4rem 0.8rem;" onclick="return confirm('Bạn có chắc muốn xóa?')">
+                            <i class="ri-delete-bin-line"></i> Xóa
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @endforeach
+        
+        <div class="mt-3">
+            {{ $transactions->appends(request()->query())->links('custom.pagination') }}
+        </div>
+    </div>
 @else
     <!-- Empty State -->
     <div class="empty-state-container">

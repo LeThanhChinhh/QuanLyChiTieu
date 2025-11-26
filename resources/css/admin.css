@@ -191,6 +191,8 @@ body {
     border-color: var(--primary-color);
 }
 
+.search-input { width: 250px; }
+
 /* Tables */
 .table-responsive { overflow-x: auto; }
 .table { width: 100%; border-collapse: collapse; }
@@ -214,6 +216,8 @@ body {
 .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.col-span-2 { grid-column: span 2; }
 
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
@@ -279,3 +283,114 @@ body {
 .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.4; z-index: -1; }
 .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; }
 .blob-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; }
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background 0.2s;
+}
+
+.sidebar-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Overlay for mobile sidebar */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .header {
+        padding: 0 1rem;
+    }
+    
+    .sidebar-toggle {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Grid System Collapse */
+    .grid-cols-4, .grid-cols-3, .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .col-span-2 { grid-column: span 1; }
+    
+    .content-wrapper {
+        padding: 1rem;
+    }
+    
+    .header-title {
+        font-size: 1.1rem;
+    }
+    
+    .badge-admin {
+        display: none;
+    }
+    
+    .user-info {
+        display: none;
+    }
+    
+    /* Table Responsive */
+    .table th, .table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Modal Mobile */
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .search-input { width: 100%; }
+}

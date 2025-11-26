@@ -7,7 +7,7 @@
 ### 👤 Người Dùng (User)
 - **Dashboard**: Tổng quan số dư, biểu đồ thu chi tháng hiện tại.
 - **Quản lý Giao dịch**: Thêm, sửa, xóa các khoản thu/chi.
-- **Quản lý Ngân sách**: Thiết lập giới hạn chi tiêu cho từng danh mục, cảnh báo khi vượt quá.
+- **Quản lý Ngân sách**: Thiết lập giới hạn chi tiêu cho từng danh mục, cảnh báo khi vượt quá mức.
 - **Danh mục**: Tùy chỉnh danh mục thu chi (Icon, Màu sắc).
 - **Giao dịch Định kỳ**: Tự động tạo giao dịch lặp lại (hàng ngày, hàng tuần, hàng tháng).
 - **Lịch**: Xem lịch sử giao dịch theo dạng lịch.
@@ -17,6 +17,7 @@
 - **Dashboard Admin**: Thống kê tổng quan hệ thống (User, Transaction, Volume).
 - **Quản lý User**: Xem danh sách, Khóa/Mở khóa tài khoản người dùng.
 - **Danh mục Mẫu**: Tạo và quản lý các danh mục hệ thống (dùng chung cho tất cả user).
+- **Tối ưu hóa Mobile**: Giao diện được tinh chỉnh để hiển thị tốt trên các thiết bị di động.
 
 ## 🛠️ Tech Stack
 

@@ -7,7 +7,7 @@
     <div class="flex justify-between items-center mb-4">
         <h4 style="margin: 0;">Danh sách người dùng</h4>
         <form action="{{ route('admin.users.index') }}" method="GET" class="flex gap-2">
-            <input type="text" name="search" class="form-control" placeholder="Tìm kiếm..." value="{{ request('search') }}" style="width: 250px;">
+            <input type="text" name="search" class="form-control search-input" placeholder="Tìm kiếm..." value="{{ request('search') }}">
             <button type="submit" class="btn btn-primary">
                 <i class="ri-search-line"></i>
             </button>

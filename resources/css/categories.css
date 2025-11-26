@@ -208,3 +208,40 @@
     background: #F3F4F6;
     color: #1F2937;
 }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-card {
+        padding: 1rem;
+    }
+    
+    /* Show actions on mobile */
+    .category-actions {
+        opacity: 1;
+        transform: translateY(0);
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: 1rem;
+        justify-content: flex-end;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        padding-top: 1rem;
+        width: 100%;
+    }
+    
+    .category-icon-large {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+    
+    .category-name {
+        font-size: 1.1rem;
+    }
+}

@@ -26,11 +26,11 @@ window.FinanceApp = {
     // Event binding
     bindEvents() {
         // Sidebar toggle
-        const sidebarToggle = document.querySelector('.sidebar-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const mainContent = document.querySelector('.main-content');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
 
-        if (sidebarToggle) {
+        if (sidebarToggle && sidebar) {
             sidebarToggle.addEventListener('click', (e) => {
                 e.preventDefault();
                 // Desktop Toggle
@@ -44,6 +44,16 @@ window.FinanceApp = {
                     const overlay = document.getElementById('sidebarOverlay');
                     if (overlay) overlay.classList.toggle('active');
                 }
+            });
+        }
+
+        // Overlay click to close sidebar
+        const overlay = document.getElementById('sidebarOverlay');
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar) sidebar.classList.remove('active');
+                overlay.classList.remove('active');
             });
         }
 

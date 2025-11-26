@@ -8,7 +8,7 @@
     min-height: 100vh;
     background: transparent; /* Let blobs show through */
     position: relative;
-    z-index: 1;
+    /* z-index: 1; Removed to prevent stacking context trap for fixed sidebar */
 }
 
 /* ============================================
@@ -20,12 +20,12 @@
     top: 0;
     width: var(--sidebar-width);
     height: 100vh;
-    background: rgba(30, 41, 59, 0.75); /* Dark Glass */
+    background: rgba(30, 41, 59, 0.95); /* Darker background for better contrast */
     backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
-    z-index: 100;
+    z-index: 1100; /* Highest priority */
     transition: transform var(--transition-base);
     box-shadow: 4px 0 24px 0 rgba(0, 0, 0, 0.05);
 }
@@ -172,7 +172,7 @@
 }
 
 .sidebar-toggle {
-    display: flex;
+    display: flex; /* Always visible */
     width: 40px;
     height: 40px;
     align-items: center;
@@ -619,6 +619,9 @@
 @media (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+        width: 280px; /* Fixed width on mobile */
+        max-width: 85vw; /* Prevent overflow on very small screens */
     }
     
     .sidebar.active {
@@ -639,11 +642,16 @@
     }
     
     .header {
-        padding: 0 var(--spacing-lg);
+        padding: 0 1rem; /* Explicit padding */
+        justify-content: space-between;
     }
     
+    .header-left {
+        gap: 0.5rem;
+    }
+
     .page-content {
-        padding: var(--spacing-lg);
+        padding: 1rem;
     }
 }
 
@@ -655,9 +663,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(4px);
-        z-index: 99;
+        background: rgba(0, 0, 0, 0.5); /* Darker overlay */
+        z-index: 1050; /* Below Sidebar (1100) but above everything else */
         opacity: 0;
         visibility: hidden;
         transition: all var(--transition-base);

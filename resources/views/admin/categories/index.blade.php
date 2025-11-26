@@ -40,7 +40,7 @@
     </div>
 
     <!-- Danh sách -->
-    <div class="glass-card" style="grid-column: span 2;">
+    <div class="glass-card col-span-2">
         <h5 class="mb-3">Danh sách danh mục mẫu</h5>
         
         @if(session('success'))
