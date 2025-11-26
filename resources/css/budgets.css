@@ -1,0 +1,372 @@
+/* ============================================
+   BUDGETS PAGE (COMPLETE)
+   ============================================ */
+
+/* --- 1. Stats & Grid (Trang Danh sách) --- */
+.budget-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 0 auto 2rem auto;
+    max-width: 1000px; /* Constrain width */
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    align-items: flex-start; /* Align left */
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    transition: transform 0.3s;
+    aspect-ratio: 3/2; /* Taller, square-like */
+}
+.stat-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.8); }
+
+.stat-icon-wrapper {
+    width: 64px; height: 64px; /* Larger wrapper */
+    border-radius: 16px; /* Softer square */
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; /* Larger icon */
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+}
+.stat-icon-wrapper.balance { background: #EFF6FF; color: #3B82F6; }
+.stat-icon-wrapper.income { background: #ECFDF5; color: #10B981; }
+.stat-icon-wrapper.expense { background: #FEF2F2; color: #EF4444; }
+
+.stat-content {
+    width: 100%;
+}
+
+.stat-value { 
+    font-size: 2rem; /* Huge text */
+    font-weight: 800; 
+    color: #1F2937; 
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+}
+.stat-label { 
+    font-size: 1rem; 
+    color: #6B7280; 
+    font-weight: 600; 
+}
+
+/* Empty State (New Design) */
+.empty-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.empty-state-img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    transition: transform 0.3s ease;
+}
+.empty-state-img:hover { transform: scale(1.05); }
+
+.empty-state-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state-subtitle {
+    font-size: 1.1rem;
+    color: #6B7280;
+    margin-bottom: 2rem;
+    max-width: 500px;
+}
+
+/* Budget Card */
+.budgets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Budget Card - Matching Wallet/Recurring Card Style */
+.budget-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.budget-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Actions - Show on Hover */
+.budget-actions {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.budget-card:hover .budget-actions {
+    opacity: 1;
+}
+
+.budget-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-start; 
+    margin-bottom: 1.5rem; 
+}
+
+.budget-category {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.budget-icon {
+    width: 56px; 
+    height: 56px; 
+    background: #10B981; 
+    border-radius: 16px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 1.75rem; 
+    color: white;
+    box-shadow: 0 8px 16px rgba(16, 185, 129, 0.2);
+}
+
+.budget-info h3 { 
+    margin: 0 0 0.25rem 0; 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    color: #1F2937; 
+}
+
+.budget-info p { 
+    margin: 0; 
+    font-size: 0.9rem; 
+    color: #9CA3AF; 
+}
+
+.budget-amounts { 
+    margin-bottom: 1rem;
+}
+
+.budget-spent {
+    display: flex;
+    flex-direction: column;
+}
+
+.budget-spent-label {
+    font-size: 0.9rem;
+    color: #6B7280;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.budget-values-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.budget-spent-value { 
+    font-size: 1.75rem; 
+    font-weight: 800; 
+    color: #1F2937; 
+    line-height: 1;
+}
+
+.budget-total { 
+    color: #9CA3AF; 
+    font-size: 1rem; 
+    font-weight: 500;
+}
+
+/* Progress Bar */
+.budget-progress-section {
+    margin-bottom: 1.5rem;
+}
+
+.budget-progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.budget-progress-label {
+    font-size: 0.9rem;
+    color: #4B5563;
+    font-weight: 500;
+}
+
+.budget-percentage {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.progress-bar-container {
+    height: 12px; 
+    background: #F3F4F6; 
+    border-radius: 999px; 
+    overflow: hidden;
+}
+
+.progress-bar { 
+    height: 100%; 
+    border-radius: 999px; 
+    transition: width 0.5s ease; 
+}
+
+.progress-bar.on-track { background: #10B981; }
+.progress-bar.warning { background: #F59E0B; }
+.progress-bar.over-budget { background: #EF4444; }
+
+.budget-status {
+    display: inline-flex; 
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem; 
+    border-radius: 999px;
+    font-size: 0.875rem; 
+    font-weight: 600;
+}
+
+.budget-status.on-track { background: #ECFDF5; color: #059669; }
+.budget-status.warning { background: #FFFBEB; color: #D97706; }
+.budget-status.over-budget { background: #FEF2F2; color: #DC2626; }
+
+.budget-remaining {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #4B5563;
+    font-weight: 500;
+}
+
+.budget-remaining-value {
+    font-weight: 700;
+    color: #1F2937;
+}
+
+.budget-remaining-value.negative {
+    color: #EF4444;
+}
+    height: 10px; background: #E5E7EB; border-radius: 10px; overflow: hidden; margin-bottom: 1rem;
+}
+.progress-bar { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
+.progress-bar.on-track { background: #10B981; }
+.progress-bar.warning { background: #F59E0B; }
+.progress-bar.over-budget { background: #EF4444; }
+
+.budget-status {
+    display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 600;
+}
+.budget-status.on-track { background: #ECFDF5; color: #059669; }
+.budget-status.warning { background: #FFFBEB; color: #D97706; }
+.budget-status.over-budget { background: #FEF2F2; color: #DC2626; }
+
+/* Add Budget Card */
+.add-budget-card {
+    border: 2px dashed #D1D5DB; border-radius: 24px;
+    background: rgba(255,255,255,0.3);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 250px; cursor: pointer; transition: all 0.3s;
+    text-decoration: none;
+}
+.add-budget-card:hover {
+    border-color: #10B981; background: rgba(236, 253, 245, 0.5);
+    transform: translateY(-5px);
+}
+.add-budget-icon {
+    width: 60px; height: 60px; background: #10B981; color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 1rem;
+}
+.add-budget-text { font-weight: 700; color: #1F2937; }
+
+/* --- 2. Create/Edit Form Styles (FIXED) --- */
+
+/* Style thẻ Card chứa Form */
+.container .card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+    border: 1px solid #fff;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 1.5rem 2rem;
+    background: transparent;
+}
+.card-header h5 { margin: 0; font-size: 1.25rem; font-weight: 800; }
+
+.card-body { padding: 2rem; }
+
+/* Inputs & Selects */
+.form-control, .form-select {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    color: #1F2937;
+    transition: all 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #10B981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    outline: none;
+}
+
+/* Labels */
+.form-label {
+    font-weight: 600; color: #374151; margin-bottom: 0.5rem;
+}
+
+/* Form Text/Hint */
+.form-text { color: #9CA3AF; font-size: 0.85rem; margin-top: 0.25rem; }
+
+/* Nút Lưu */
+.btn-success {
+    width: 100%;
+    background: #10B981;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+.btn-success:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}

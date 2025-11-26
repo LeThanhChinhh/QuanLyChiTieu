@@ -1,0 +1,210 @@
+/* ============================================
+   CATEGORIES PAGE (COMPLETE)
+   ============================================ */
+
+/* --- 1. Grid & List Styles (Trang Danh sách) --- */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.category-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For absolute actions */
+    overflow: hidden;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    border-color: #10B981;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+}
+
+/* Horizontal Layout Wrapper */
+.category-content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.category-icon-large {
+    width: 64px; /* Larger icon */
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    border-radius: 20px;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+    flex-shrink: 0;
+}
+
+.category-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex-grow: 1;
+    min-width: 0; /* For text truncation */
+}
+
+.category-name {
+    font-size: 1.35rem; /* Larger */
+    font-weight: 800; /* Bold */
+    color: #1F2937;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+}
+
+.category-type-badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.category-type-badge.income { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+.category-type-badge.expense { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+
+/* Actions: Absolute Top Right, Visible on Hover */
+.category-actions {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.category-card:hover .category-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-icon {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; /* Circle */
+    border: none;
+    transition: all 0.2s;
+    color: #6B7280;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.btn-icon:hover { background: white; transform: scale(1.1); }
+.btn-icon.btn-danger:hover { background: #FEE2E2; color: #EF4444; }
+
+/* Stats: Bottom with Border Top */
+.category-stats {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.category-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-stat-label {
+    font-size: 0.85rem;
+    color: #9CA3AF;
+    font-weight: 600;
+}
+
+.category-stat-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #10B981; /* Highlight color */
+}
+
+/* --- 2. Create/Edit Form Styles (FIXED) --- */
+
+/* Style lại thẻ Card bao quanh Form */
+.container .card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    overflow: visible; /* Để bóng đổ không bị cắt */
+}
+
+.card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 1.5rem 2rem;
+}
+.card-header h4, .card-header h5 { margin: 0; font-weight: 700; color: #1F2937; }
+
+.card-body { padding: 2rem; }
+
+/* Style Input Form (form-control) */
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    color: #1F2937;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.form-control:focus, .form-select:focus {
+    background: #fff;
+    border-color: #10B981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    outline: none;
+}
+
+/* Style Buttons trong Form */
+.btn-success, .btn-primary {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    transition: transform 0.2s;
+}
+.btn-success:hover, .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btn-secondary, .btn-light {
+    background: white;
+    border: 1px solid #E5E7EB;
+    color: #4B5563;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+}
+.btn-secondary:hover, .btn-light:hover {
+    background: #F3F4F6;
+    color: #1F2937;
+}

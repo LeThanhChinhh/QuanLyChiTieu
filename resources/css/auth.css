@@ -1,0 +1,205 @@
+/* ===================================
+   Authentication Styles (Solid Finance Theme - Logo Outside)
+   =================================== */
+
+/* 1. Nền Blobs (Giữ nguyên) */
+.blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    z-index: -1;
+}
+.blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #10B981; animation: float 10s infinite alternate; }
+.blob-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #3B82F6; animation: float 15s infinite alternate; }
+.blob-3 { top: 40%; left: 40%; width: 400px; height: 400px; background: #8B5CF6; animation: float 12s infinite alternate-reverse; }
+
+@keyframes float { from { transform: translate(0,0); } to { transform: translate(30px, 50px); } }
+
+/* 2. Container - Xếp dọc (Column) để Logo nằm trên Card */
+.auth-container {
+    display: flex;
+    flex-direction: column; /* Quan trọng: Xếp Logo và Card theo chiều dọc */
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 2rem; /* Khoảng cách giữa Logo và Card */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 3. Brand Logo (Nằm ngoài Card) */
+.auth-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #10B981;
+    text-align: center;
+    animation: float-brand 6s ease-in-out infinite; /* Hiệu ứng bay nhẹ */
+    z-index: 10;
+}
+
+.auth-brand i {
+    font-size: 4rem; /* Icon to đẹp */
+    margin-bottom: 0.25rem;
+    filter: drop-shadow(0 10px 15px rgba(16, 185, 129, 0.3));
+    background: linear-gradient(135deg, #10B981, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.auth-brand span {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #064E3B;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes float-brand {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* 4. Thẻ Card (Gọn gàng hơn vì đã bỏ Logo ra ngoài) */
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.92); /* Trắng đục 92% */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid #ffffff;
+    border-radius: 24px;
+    padding: 2rem; /* Padding vừa phải */
+    box-shadow: 0 25px 60px -12px rgba(16, 185, 129, 0.25);
+    max-height: 85vh; /* Giới hạn chiều cao */
+    overflow-y: auto; /* Scroll nếu màn hình quá bé */
+}
+.auth-card::-webkit-scrollbar { width: 0; }
+
+/* 5. Header phụ (Trong Card) */
+.auth-header { text-align: center; margin-bottom: 1.5rem; }
+.auth-header h2 { font-size: 1.5rem; font-weight: 700; color: #1F2937; margin-bottom: 0.25rem; }
+.auth-header p { color: #6B7280; font-size: 0.9rem; font-weight: 500; margin: 0; }
+
+/* 6. Form Inputs */
+.form-group { margin-bottom: 1rem; }
+.form-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    color: #374151;
+    display: block;
+    padding-left: 0.25rem;
+}
+
+.input-wrapper { position: relative; display: flex; align-items: center; }
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.8rem; /* Padding gọn */
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 2px solid #E5E7EB;
+    background: #FFFFFF;
+    color: #111827;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    border-color: #10B981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    background: #F0FDF4;
+    outline: none;
+}
+
+.form-control::placeholder { color: #9CA3AF; font-weight: 400; font-size: 0.9rem; }
+
+.input-wrapper i {
+    position: absolute;
+    left: 1rem;
+    top: 50%; transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #9CA3AF;
+    pointer-events: none;
+    transition: color 0.2s;
+}
+.input-wrapper:focus-within i { color: #10B981; }
+
+/* 7. Options & Buttons */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+.checkbox-wrapper { display: flex; align-items: center; gap: 0.5rem; }
+.checkbox-wrapper input { width: 18px; height: 18px; accent-color: #10B981; cursor: pointer; }
+.checkbox-wrapper label { font-size: 0.85rem; color: #4B5563; margin: 0; cursor: pointer; }
+
+.forgot-link {
+    color: #10B981;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+.forgot-link:hover { text-decoration: underline; }
+
+.btn-primary {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+    font-weight: 700;
+    background: #10B981;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4);
+    margin-top: 0.5rem;
+}
+.btn-primary:hover { background: #059669; transform: translateY(-1px); }
+
+/* 8. Social & Footer */
+.divider {
+    display: flex; align-items: center; margin: 1.25rem 0;
+    color: #9CA3AF; font-size: 0.8rem; font-weight: 600;
+}
+.divider::before, .divider::after { content: ''; flex: 1; height: 2px; background: #F3F4F6; }
+.divider span { padding: 0 0.75rem; }
+
+.social-login { display: flex; gap: 0.75rem; }
+.social-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 0.75rem;
+    background: #FFFFFF; border: 2px solid #E5E7EB;
+    border-radius: 12px; font-weight: 600; color: #374151; font-size: 0.9rem;
+    cursor: pointer; transition: all 0.2s;
+}
+.social-btn:hover { border-color: #D1D5DB; background: #F9FAFB; }
+
+.auth-footer { 
+    text-align: center; 
+    margin-top: 1.5rem; 
+    color: #6B7280; 
+    font-size: 0.9rem;
+}
+.auth-footer a { color: #10B981; font-weight: 700; text-decoration: none; }
+.auth-footer a:hover { text-decoration: underline; }
+
+/* Alert Messages */
+.alert {
+    padding: 0.75rem; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.85rem;
+}
+.alert-danger { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+.alert-success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+
+/* Responsive */
+@media (max-width: 640px) {
+    .auth-card { padding: 1.5rem; }
+    .social-login { flex-direction: row; }
+}
