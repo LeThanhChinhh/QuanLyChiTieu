@@ -2,8 +2,25 @@
    Dashboard Charts - REAL DATA
    =================================== */
 
+let overviewChartInstance = null;
+let trendChartInstance = null;
+
 document.addEventListener('DOMContentLoaded', function() {
     initDashboardCharts();
+    
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            if (overviewChartInstance) {
+                overviewChartInstance.resize();
+            }
+            if (trendChartInstance) {
+                trendChartInstance.resize();
+            }
+        }, 250);
+    });
 });
 
 function initDashboardCharts() {
@@ -75,9 +92,15 @@ function initOverviewChart() {
                         }
                     }
                 }
+            },
+            onResize: function(chart, size) {
+                chart.resize();
             }
         }
     });
+    
+    // Store chart instance
+    overviewChartInstance = Chart.getChart(ctx);
 }
 
 // 2. Biểu đồ Đường (Xu hướng 6 tháng)
@@ -168,7 +191,13 @@ function initTrendChart() {
                 x: {
                     grid: { display: false }
                 }
+            },
+            onResize: function(chart, size) {
+                chart.resize();
             }
         }
     });
+    
+    // Store chart instance
+    trendChartInstance = Chart.getChart(ctx);
 }

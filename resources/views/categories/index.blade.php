@@ -46,10 +46,18 @@
                     </div>
                 </div>
 
-                <!-- Action Buttons (Absolute Top-Right, Visible on Hover) -->
+                <!-- Stats (Bottom Section) -->
+                <div class="category-stats">
+                    <div class="category-stat-row">
+                        <span class="category-stat-label">Tháng này</span>
+                        <span class="category-stat-value">{{ number_format($category->monthly_total ?? 0, 0, ',', '.') }}₫</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons (Bottom with Border Top) -->
                 @if($category->user_id)
                 <div class="category-actions">
-                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-icon btn-light" title="Sửa">
+                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-icon btn-secondary" title="Sửa">
                         <i class="ri-edit-line"></i>
                     </a>
                     <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline;">
@@ -66,14 +74,6 @@
                     <span class="badge bg-secondary" title="Danh mục hệ thống"><i class="ri-lock-line"></i> System</span>
                 </div>
                 @endif
-
-                <!-- Stats (Bottom with Border Top) -->
-                <div class="category-stats">
-                    <div class="category-stat-row">
-                        <span class="category-stat-label">Tháng này</span>
-                        <span class="category-stat-value">{{ number_format($category->monthly_total ?? 0, 0, ',', '.') }}₫</span>
-                    </div>
-                </div>
             </div>
         @endforeach
     </div>

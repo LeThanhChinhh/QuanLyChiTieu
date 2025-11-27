@@ -194,38 +194,116 @@
     <!-- Mobile View -->
     <div class="transactions-mobile">
         @foreach($transactions as $transaction)
-            <div class="transaction-card-mobile" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 16px; padding: 1rem; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.5);">
-                <div class="transaction-card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <div class="flex items-center gap-3">
-                        <div class="category-icon" style="background-color: {{ $transaction->category->color ?? '#ccc' }}20; color: {{ $transaction->category->color ?? '#ccc' }}; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
-                            <i class="{{ $transaction->category->icon ?? 'ri-price-tag-3-line' }}" style="font-size: 1.2rem;"></i>
-                        </div>
-                        <div>
-                            <div style="font-weight: 600; color: #1F2937;">{{ $transaction->category->name ?? 'Chưa phân loại' }}</div>
-                            <div style="font-size: 0.8rem; color: #6B7280;">{{ \Carbon\Carbon::parse($transaction->transaction_date)->format('d/m/Y') }}</div>
-                        </div>
-                    </div>
-                    <div class="transaction-amount {{ $transaction->type }}" style="font-weight: 700; font-size: 1rem;">
+            @php
+                $typeClass = match($transaction->type) {
+                    'income' => 'income',
+                    'expense' => 'expense',
+                    'transfer' => 'transfer',
+                    default => ''
+                };
+                $typeLabel = match($transaction->type) {
+                    'income' => 'Thu nhập',
+                    'expense' => 'Chi tiêu',
+                    'transfer' => 'Chuyển tiền',
+                    default => 'Khác'
+                };
+                $typeIcon = match($transaction->type) {
+                    'income' => 'arrow-down',
+                    'expense' => 'arrow-up',
+                    'transfer' => 'exchange',
+                    default => 'question'
+                };
+            @endphp
+            
+            <div class="transaction-card-mobile">
+                
+                <!-- Header: Loại giao dịch + Số tiền -->
+                <div class="transaction-card-header">
+                    <span class="transaction-type {{ $typeClass }}">
+                        <i class="ri-{{ $typeIcon }}-line"></i> {{ $typeLabel }}
+                    </span>
+                    <div class="transaction-amount-cell {{ $typeClass }}">
                         @if($transaction->type == 'expense') - @endif
                         @if($transaction->type == 'income') + @endif
                         {{ number_format($transaction->amount, 0, ',', '.') }}₫
                     </div>
                 </div>
                 
-                @if($transaction->description)
-                <div style="font-size: 0.9rem; color: #4B5563; margin-bottom: 1rem; padding: 0.5rem; background: rgba(0,0,0,0.02); border-radius: 8px;">
-                    {{ $transaction->description }}
+                <!-- Body: Thông tin chi tiết -->
+                <div class="transaction-card-body">
+                    
+                    <!-- Danh mục -->
+                    @if($transaction->type == 'transfer')
+                        <div class="transaction-card-field">
+                            <span class="transaction-card-label">Loại</span>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div class="category-icon-small" style="background: rgba(59, 130, 246, 0.1); color: #3B82F6;">
+                                    <i class="ri-exchange-line"></i>
+                                </div>
+                                <span class="transaction-card-value" style="color: #3B82F6;">Chuyển khoản</span>
+                            </div>
+                        </div>
+                    @else
+                        <div class="transaction-card-field">
+                            <span class="transaction-card-label">Danh mục</span>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div class="category-icon-small">
+                                    <i class="{{ $transaction->category->icon ?? 'ri-folder-line' }}"></i>
+                                </div>
+                                <span class="transaction-card-value">{{ $transaction->category->name ?? 'Chung' }}</span>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <!-- Ví nguồn -->
+                    <div class="transaction-card-field">
+                        <span class="transaction-card-label">
+                            @if($transaction->type == 'transfer') Từ ví @else Ví @endif
+                        </span>
+                        <span class="transaction-card-value">
+                            <i class="ri-wallet-3-line" style="color: #10B981; margin-right: 0.25rem;"></i>
+                            {{ $transaction->wallet->name ?? 'Không xác định' }}
+                        </span>
+                    </div>
+                    
+                    <!-- Ví đích (chỉ cho transfer) -->
+                    @if($transaction->type == 'transfer' && $transaction->destinationWallet)
+                        <div class="transaction-card-field">
+                            <span class="transaction-card-label">Đến ví</span>
+                            <span class="transaction-card-value">
+                                <i class="ri-wallet-3-line" style="color: #3B82F6; margin-right: 0.25rem;"></i>
+                                {{ $transaction->destinationWallet->name }}
+                            </span>
+                        </div>
+                    @endif
+                    
+                    <!-- Ngày -->
+                    <div class="transaction-card-field">
+                        <span class="transaction-card-label">Thời gian</span>
+                        <span class="transaction-card-value" style="font-weight: 500; color: #4B5563;">
+                            <i class="ri-calendar-line" style="margin-right: 0.25rem;"></i>
+                            {{ $transaction->transaction_date->format('d/m/Y H:i') }}
+                        </span>
+                    </div>
+                    
+                    <!-- Mô tả -->
+                    @if($transaction->description)
+                        <div class="transaction-card-field has-description">
+                            <span class="transaction-card-label">Ghi chú</span>
+                            <span class="transaction-card-value description-text">{{ $transaction->description }}</span>
+                        </div>
+                    @endif
                 </div>
-                @endif
 
-                <div class="flex justify-end gap-2 mt-2">
-                    <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-sm btn-secondary" style="padding: 0.4rem 0.8rem;">
+                <!-- Footer: Actions -->
+                <div class="transaction-actions">
+                    <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-sm btn-secondary">
                         <i class="ri-edit-line"></i> Sửa
                     </a>
                     <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" style="padding: 0.4rem 0.8rem;" onclick="return confirm('Bạn có chắc muốn xóa?')">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa giao dịch này?')">
                             <i class="ri-delete-bin-line"></i> Xóa
                         </button>
                     </form>

@@ -23,8 +23,10 @@
 
         <div class="glass-form-group">
             <label class="glass-label">Số tiền tối đa (VNĐ)</label>
-            <input type="number" name="amount" class="glass-input large-amount" 
-                   value="{{ round($budget->amount) }}" required>
+            <input type="text" class="glass-input large-amount" 
+                   value="{{ number_format(round($budget->amount), 0, '', '.') }}" 
+                   required oninput="formatCurrency(this, 'amount')">
+            <input type="hidden" name="amount" id="amount" value="{{ round($budget->amount) }}">
         </div>
 
         <div class="row mb-4">
@@ -55,4 +57,18 @@
         </div>
     </form>
 </div>
+
+<script>
+    function formatCurrency(input, targetId) {
+        let value = input.value.replace(/\D/g, '');
+        if (targetId) {
+            document.getElementById(targetId).value = value;
+        }
+        if (value !== '') {
+            input.value = new Intl.NumberFormat('vi-VN').format(value);
+        } else {
+            input.value = '';
+        }
+    }
+</script>
 @endsection

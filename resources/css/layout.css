@@ -604,67 +604,118 @@
 }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE - 4 BREAKPOINTS SYSTEM
    ============================================ */
-@media (max-width: 1024px) {
+
+/* Desktop (> 1200px) - Default styles above */
+
+/* Laptop (769px - 1200px) */
+@media (max-width: 1200px) {
+    :root {
+        --sidebar-width: 260px;
+        --header-height: 68px;
+    }
+    
     .search-box {
         width: 280px;
     }
     
-    .user-info {
-        display: none;
+    .header {
+        padding: 0 1.5rem;
+    }
+    
+    .page-content {
+        padding: 1.5rem;
+    }
+    
+    .header-title {
+        font-size: 1.125rem;
     }
 }
 
+/* Tablet (576px - 768px) */
 @media (max-width: 768px) {
+    :root {
+        --header-height: 64px;
+    }
+    
+    /* Sidebar becomes off-canvas */
     .sidebar {
         transform: translateX(-100%);
         box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
-        width: 280px; /* Fixed width on mobile */
-        max-width: 85vw; /* Prevent overflow on very small screens */
+        width: 280px;
+        max-width: 85vw;
     }
     
     .sidebar.active {
         transform: translateX(0);
     }
     
+    /* Main content full width */
     .main-content {
         margin-left: 0;
         width: 100%;
     }
     
-    .sidebar-toggle {
-        display: flex;
+    .main-content.expanded {
+        margin-left: 0;
+    }
+    
+    /* Header adjustments */
+    .header {
+        padding: 0 1rem;
+        height: 64px;
+    }
+    
+    .header-left {
+        gap: 0.75rem;
+    }
+    
+    .header-title {
+        font-size: 1rem;
+    }
+    
+    .header-date {
+        font-size: 0.8rem;
     }
     
     .search-box {
         display: none;
     }
     
-    .header {
-        padding: 0 1rem; /* Explicit padding */
-        justify-content: space-between;
+    .user-info {
+        display: none;
     }
     
-    .header-left {
-        gap: 0.5rem;
+    .user-avatar-img {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
     }
-
+    
+    .header-action-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* Page content compact */
     .page-content {
         padding: 1rem;
     }
-}
-
-/* Mobile Overlay */
-@media (max-width: 768px) {
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+    
+    /* Sidebar Overlay */
     .sidebar-overlay {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5); /* Darker overlay */
-        z-index: 1050; /* Below Sidebar (1100) but above everything else */
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1050;
         opacity: 0;
         visibility: hidden;
         transition: all var(--transition-base);
@@ -673,6 +724,156 @@
     .sidebar-overlay.active {
         opacity: 1;
         visibility: visible;
+    }
+    
+    /* Dropdown full width on tablet */
+    .header-dropdown-menu {
+        min-width: 280px;
+        max-width: 90vw;
+    }
+    
+    #notifyDropdown {
+        right: 0;
+        left: auto;
+        transform: none;
+    }
+}
+
+/* Mobile (< 576px) */
+@media (max-width: 575px) {
+    :root {
+        --header-height: 60px;
+        --spacing-xl: 1.5rem;
+        --spacing-lg: 1rem;
+    }
+    
+    /* Header ultra compact */
+    .header {
+        padding: 0 0.75rem;
+        height: 60px;
+    }
+    
+    .header-left {
+        gap: 0.5rem;
+        flex: 1;
+    }
+    
+    .header-right {
+        gap: 0.5rem;
+    }
+    
+    .header-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+    
+    .header-date {
+        display: none;
+    }
+    
+    .header-action-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .header-action-btn .badge {
+        width: 16px;
+        height: 16px;
+        font-size: 0.6rem;
+        top: 2px;
+        right: 2px;
+    }
+    
+    .user-avatar-img {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+    
+    .user-profile-btn {
+        padding: 2px;
+    }
+    
+    /* Sidebar narrower on small phones */
+    .sidebar {
+        width: 260px;
+        max-width: 80vw;
+    }
+    
+    .sidebar-brand {
+        padding: 1rem 0.75rem;
+    }
+    
+    .sidebar-brand h2 {
+        font-size: 1.125rem;
+    }
+    
+    .sidebar-nav {
+        padding: 0.75rem;
+    }
+    
+    .nav-link {
+        padding: 0.75rem 0.875rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-link i {
+        font-size: 1.125rem;
+    }
+    
+    /* Page content more compact */
+    .page-content {
+        padding: 0.75rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .page-subtitle {
+        font-size: 0.875rem;
+    }
+    
+    .page-header {
+        margin-bottom: 1rem;
+    }
+    
+    /* Dropdown nearly full width */
+    .header-dropdown-menu {
+        min-width: auto;
+        width: calc(100vw - 1.5rem);
+        max-width: 320px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+    
+    #notifyDropdown {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+    
+    .notification-list {
+        max-height: 280px;
+    }
+    
+    .notification-item {
+        padding: 10px 12px;
+    }
+    
+    .notification-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .notification-title {
+        font-size: 0.8125rem;
+    }
+    
+    .notification-desc {
+        font-size: 0.75rem;
     }
 }
 

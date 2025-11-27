@@ -195,16 +195,16 @@
         const catInput = document.getElementById('category_input');
 
         if (type === 'transfer') {
-            // Chế độ Chuyển khoản
+            // Chế độ Chuyển khoản - Hiển thị cả Đến Ví và Danh mục
             destGroup.style.display = 'block';
-            catGroup.style.display = 'none';
+            catGroup.style.display = 'block';
             sourceLabel.innerText = 'Từ Ví';
             
             // Cập nhật required
             destInput.required = true;
-            catInput.required = false;
+            catInput.required = true; // Bắt buộc chọn danh mục cho chuyển khoản
         } else {
-            // Chế độ Thu/Chi
+            // Chế độ Thu/Chi - Chỉ hiển thị Danh mục
             destGroup.style.display = 'none';
             catGroup.style.display = 'block';
             sourceLabel.innerText = 'Nguồn tiền (Ví)';

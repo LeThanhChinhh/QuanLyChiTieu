@@ -118,13 +118,13 @@
         <div class="glass-form-group">
             <label class="glass-label required">Số tiền (VNĐ)</label>
             <input 
-                type="number" 
-                name="amount" 
+                type="text" 
                 class="glass-input large-amount" 
-                value="{{ old('amount', round($transaction->amount)) }}" 
-                min="0" 
+                value="{{ number_format(old('amount', round($transaction->amount)), 0, '', '.') }}" 
                 required
+                oninput="formatCurrency(this, 'amount')"
             >
+            <input type="hidden" name="amount" id="amount" value="{{ old('amount', round($transaction->amount)) }}">
         </div>
 
         <div class="glass-form-group">
@@ -147,6 +147,18 @@
 
 @section('scripts')
 <script>
+    function formatCurrency(input, targetId) {
+        let value = input.value.replace(/\D/g, '');
+        if (targetId) {
+            document.getElementById(targetId).value = value;
+        }
+        if (value !== '') {
+            input.value = new Intl.NumberFormat('vi-VN').format(value);
+        } else {
+            input.value = '';
+        }
+    }
+
     function selectType(type) {
         document.getElementById('type_input').value = type;
 
@@ -165,13 +177,15 @@
         const catInput = document.getElementById('category_input');
 
         if (type === 'transfer') {
+            // Chế độ Chuyển khoản - Hiển thị cả Đến Ví và Danh mục
             destGroup.style.display = 'block';
-            catGroup.style.display = 'none';
+            catGroup.style.display = 'block';
             sourceLabel.innerText = 'Từ Ví';
             
             destInput.required = true;
-            catInput.required = false;
+            catInput.required = true; // Bắt buộc chọn danh mục cho chuyển khoản
         } else {
+            // Chế độ Thu/Chi - Chỉ hiển thị Danh mục
             destGroup.style.display = 'none';
             catGroup.style.display = 'block';
             sourceLabel.innerText = 'Nguồn tiền (Ví)';

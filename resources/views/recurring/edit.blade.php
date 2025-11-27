@@ -2,101 +2,134 @@
 
 @section('title', 'Sửa giao dịch định kỳ')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="glass-form-container p-4">
-                <h3 class="text-white mb-4">Sửa giao dịch định kỳ</h3>
+@section('styles')
+    @vite(['resources/css/wallet.css'])
+@endsection
 
-                <form action="{{ route('recurring.update', $recurring) }}" method="POST">
+@section('content')
+<div class="wallet-form-container">
+    <div class="wallet-form-header">
+        <h2 class="text-primary">
+            <i class="ri-edit-line me-2"></i>Sửa giao dịch định kỳ
+        </h2>
+    </div>
+    
+    <form action="{{ route('recurring.update', $recurring) }}" method="POST">
                     @csrf
                     @method('PUT')
 
-                    <div class="mb-3">
-                        <label class="form-label text-white">Mô tả</label>
-                        <input type="text" name="description" class="form-control glass-input" required value="{{ $recurring->description }}">
+                    <div class="wallet-form-group">
+                        <label class="wallet-form-label">Mô tả</label>
+                        <input type="text" name="description" class="wallet-form-input" required value="{{ $recurring->description }}">
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-white">Số tiền</label>
-                            <input type="number" name="amount" class="form-control glass-input" required min="0" step="0.01" value="{{ $recurring->amount }}">
+                        <div class="col-md-6">
+                            <div class="wallet-form-group">
+                                <label class="wallet-form-label">Số tiền</label>
+                                <input type="text" class="wallet-form-input" 
+                                       value="{{ number_format(round($recurring->amount), 0, '', '.') }}" 
+                                       required oninput="formatCurrency(this, 'amount')">
+                                <input type="hidden" name="amount" id="amount" value="{{ round($recurring->amount) }}">
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-white">Loại</label>
-                            <select name="type" class="form-select glass-input" id="typeSelect" required>
-                                <option value="expense" {{ $recurring->type == 'expense' ? 'selected' : '' }}>Chi tiêu</option>
-                                <option value="income" {{ $recurring->type == 'income' ? 'selected' : '' }}>Thu nhập</option>
-                                <option value="transfer" {{ $recurring->type == 'transfer' ? 'selected' : '' }}>Chuyển khoản</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-white">Tần suất</label>
-                            <select name="frequency" class="form-select glass-input" required>
-                                <option value="daily" {{ $recurring->frequency == 'daily' ? 'selected' : '' }}>Hàng ngày</option>
-                                <option value="weekly" {{ $recurring->frequency == 'weekly' ? 'selected' : '' }}>Hàng tuần</option>
-                                <option value="monthly" {{ $recurring->frequency == 'monthly' ? 'selected' : '' }}>Hàng tháng</option>
-                                <option value="yearly" {{ $recurring->frequency == 'yearly' ? 'selected' : '' }}>Hàng năm</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-white">Ngày bắt đầu</label>
-                            <input type="date" name="start_date" class="form-control glass-input" required value="{{ $recurring->start_date->format('Y-m-d') }}">
+                        <div class="col-md-6">
+                            <div class="wallet-form-group">
+                                <label class="wallet-form-label">Loại</label>
+                                <select name="type" class="wallet-form-input" id="typeSelect" required>
+                                    <option value="expense" {{ $recurring->type == 'expense' ? 'selected' : '' }}>Chi tiêu</option>
+                                    <option value="income" {{ $recurring->type == 'income' ? 'selected' : '' }}>Thu nhập</option>
+                                    <option value="transfer" {{ $recurring->type == 'transfer' ? 'selected' : '' }}>Chuyển khoản</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-white">Ví</label>
-                            <select name="wallet_id" class="form-select glass-input" required>
-                                @foreach($wallets as $wallet)
-                                    <option value="{{ $wallet->id }}" {{ $recurring->wallet_id == $wallet->id ? 'selected' : '' }}>{{ $wallet->name }} ({{ number_format($wallet->balance) }})</option>
-                                @endforeach
-                            </select>
+                        <div class="col-md-6">
+                            <div class="wallet-form-group">
+                                <label class="wallet-form-label">Tần suất</label>
+                                <select name="frequency" class="wallet-form-input" required>
+                                    <option value="daily" {{ $recurring->frequency == 'daily' ? 'selected' : '' }}>Hàng ngày</option>
+                                    <option value="weekly" {{ $recurring->frequency == 'weekly' ? 'selected' : '' }}>Hàng tuần</option>
+                                    <option value="monthly" {{ $recurring->frequency == 'monthly' ? 'selected' : '' }}>Hàng tháng</option>
+                                    <option value="yearly" {{ $recurring->frequency == 'yearly' ? 'selected' : '' }}>Hàng năm</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3 {{ $recurring->type == 'transfer' ? 'd-none' : '' }}" id="categoryGroup">
-                            <label class="form-label text-white">Danh mục</label>
-                            <select name="category_id" class="form-select glass-input">
-                                <option value="">Chọn danh mục</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ $recurring->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3 {{ $recurring->type != 'transfer' ? 'd-none' : '' }}" id="destinationWalletGroup">
-                            <label class="form-label text-white">Ví đến</label>
-                            <select name="destination_wallet_id" class="form-select glass-input">
-                                <option value="">Chọn ví đến</option>
-                                @foreach($wallets as $wallet)
-                                    <option value="{{ $wallet->id }}" {{ $recurring->destination_wallet_id == $wallet->id ? 'selected' : '' }}>{{ $wallet->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="col-md-6">
+                            <div class="wallet-form-group">
+                                <label class="wallet-form-label">Ngày bắt đầu</label>
+                                <input type="date" name="start_date" class="wallet-form-input" required value="{{ $recurring->start_date->format('Y-m-d') }}">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label text-white">Trạng thái</label>
-                        <select name="status" class="form-select glass-input">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="wallet-form-group">
+                                <label class="wallet-form-label">Ví</label>
+                                <select name="wallet_id" class="wallet-form-input" required>
+                                    @foreach($wallets as $wallet)
+                                        <option value="{{ $wallet->id }}" {{ $recurring->wallet_id == $wallet->id ? 'selected' : '' }}>{{ $wallet->name }} ({{ number_format($wallet->balance) }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 {{ $recurring->type == 'transfer' ? 'd-none' : '' }}" id="categoryGroup">
+                            <div class="wallet-form-group">
+                                <label class="wallet-form-label">Danh mục</label>
+                                <select name="category_id" class="wallet-form-input">
+                                    <option value="">Chọn danh mục</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" {{ $recurring->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 {{ $recurring->type != 'transfer' ? 'd-none' : '' }}" id="destinationWalletGroup">
+                            <div class="wallet-form-group">
+                                <label class="wallet-form-label">Ví đến</label>
+                                <select name="destination_wallet_id" class="wallet-form-input">
+                                    <option value="">Chọn ví đến</option>
+                                    @foreach($wallets as $wallet)
+                                        <option value="{{ $wallet->id }}" {{ $recurring->destination_wallet_id == $wallet->id ? 'selected' : '' }}>{{ $wallet->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wallet-form-group">
+                        <label class="wallet-form-label">Trạng thái</label>
+                        <select name="status" class="wallet-form-input">
                             <option value="active" {{ $recurring->status == 'active' ? 'selected' : '' }}>Hoạt động</option>
                             <option value="inactive" {{ $recurring->status == 'inactive' ? 'selected' : '' }}>Không hoạt động</option>
                         </select>
                     </div>
 
-                    <div class="d-flex justify-content-end gap-2 mt-4">
+                    <div class="wallet-form-actions">
                         <a href="{{ route('recurring.index') }}" class="btn btn-secondary">Hủy</a>
-                        <button type="submit" class="btn btn-primary">Cập nhật lịch</button>
+                        <button type="submit" class="btn btn-primary fw-bold">
+                            <i class="ri-save-line"></i> Cập nhật lịch
+                        </button>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-</div>
 
-<script>
+            <script>
+    function formatCurrency(input, targetId) {
+        let value = input.value.replace(/\D/g, '');
+        if (targetId) {
+            document.getElementById(targetId).value = value;
+        }
+        if (value !== '') {
+            input.value = new Intl.NumberFormat('vi-VN').format(value);
+        } else {
+            input.value = '';
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const typeSelect = document.getElementById('typeSelect');
         const categoryGroup = document.getElementById('categoryGroup');

@@ -26,8 +26,10 @@
 
         <div class="wallet-form-group">
             <label class="wallet-form-label">Số dư thực tế (VNĐ)</label>
-            <input type="number" name="balance" class="wallet-form-input large-amount" 
-                   value="{{ old('balance', round($wallet->balance)) }}" required>
+            <input type="text" class="wallet-form-input large-amount" 
+                   value="{{ number_format(old('balance', round($wallet->balance)), 0, '', '.') }}" 
+                   required oninput="formatCurrency(this, 'balance')">
+            <input type="hidden" name="balance" id="balance" value="{{ old('balance', round($wallet->balance)) }}">
             <div class="alert alert-warning mt-2 small py-2" style="background: rgba(253, 230, 138, 0.3); border: 1px solid rgba(251, 191, 36, 0.5); color: #92400E; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px;">
                 <i class="ri-alert-line"></i> 
                 Lưu ý: Thay đổi số dư ở đây là điều chỉnh thủ công (không tạo giao dịch).
@@ -74,16 +76,19 @@
             </button>
         </div>
     </form>
-    
-    <hr class="my-4" style="border-color: rgba(0,0,0,0.1);">
-    
-    <form action="{{ route('wallets.destroy', $wallet->id) }}" method="POST" class="text-center">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-link text-danger text-decoration-none" 
-                onclick="return confirm('CẢNH BÁO: Xóa ví này sẽ xóa TOÀN BỘ lịch sử giao dịch liên quan đến nó. Bạn có chắc chắn không?')">
-            <i class="ri-delete-bin-line"></i> Xóa ví này vĩnh viễn
-        </button>
-    </form>
 </div>
+
+<script>
+    function formatCurrency(input, targetId) {
+        let value = input.value.replace(/\D/g, '');
+        if (targetId) {
+            document.getElementById(targetId).value = value;
+        }
+        if (value !== '') {
+            input.value = new Intl.NumberFormat('vi-VN').format(value);
+        } else {
+            input.value = '';
+        }
+    }
+</script>
 @endsection

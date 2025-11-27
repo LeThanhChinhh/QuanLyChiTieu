@@ -18,11 +18,21 @@
                     <i class="ri-add-line"></i>
                 </div>
                 <h3 class="add-recurring-text">Thêm mới</h3>
+                <p class="add-recurring-hint">Tự động hóa giao dịch của bạn</p>
             </a>
 
             @foreach($recurringTransactions as $recurring)
                 <div class="glass-card">
-                    <!-- Top: Icon + Name + Actions -->
+                    @php
+                        $frequencies = [
+                            'daily' => 'Hàng ngày',
+                            'weekly' => 'Hàng tuần',
+                            'monthly' => 'Hàng tháng',
+                            'yearly' => 'Hàng năm'
+                        ];
+                    @endphp
+                    
+                    <!-- Header: Icon + Name -->
                     <div class="card-header-custom">
                         <div class="card-icon-wrapper">
                             <div class="icon-box {{ $recurring->type == 'income' ? 'bg-income' : ($recurring->type == 'expense' ? 'bg-expense' : 'bg-transfer') }}">
@@ -30,33 +40,12 @@
                             </div>
                             <div class="transaction-info">
                                 <h3>{{ $recurring->description ?? 'Không tên' }}</h3>
-                                @php
-                                    $frequencies = [
-                                        'daily' => 'Hàng ngày',
-                                        'weekly' => 'Hàng tuần',
-                                        'monthly' => 'Hàng tháng',
-                                        'yearly' => 'Hàng năm'
-                                    ];
-                                @endphp
                                 <span class="badge">{{ $frequencies[$recurring->frequency] ?? ucfirst($recurring->frequency) }}</span>
                             </div>
                         </div>
-                        
-                        <div class="card-actions">
-                            <a href="{{ route('recurring.edit', $recurring) }}" class="btn-action edit" title="Sửa">
-                                <i class="ri-pencil-line"></i>
-                            </a>
-                            <form action="{{ route('recurring.destroy', $recurring) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-action delete" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
-                                    <i class="ri-delete-bin-line"></i>
-                                </button>
-                            </form>
-                        </div>
                     </div>
 
-                    <!-- Middle: Amount + Wallet -->
+                    <!-- Body: Amount + Wallet -->
                     <div class="card-body-custom">
                         <div class="amount">{{ number_format($recurring->amount) }} ₫</div>
                         <div class="wallet-info">
@@ -69,7 +58,7 @@
                         </div>
                     </div>
 
-                    <!-- Bottom: Next Run + Status -->
+                    <!-- Footer: Next Run + Status -->
                     <div class="card-footer-custom">
                         <div class="next-run">
                             <label>Lần chạy tới</label>
@@ -86,6 +75,20 @@
                                 <input type="checkbox" onchange="this.form.submit()" {{ $recurring->status == 'active' ? 'checked' : '' }}>
                                 <span class="slider"></span>
                             </label>
+                        </form>
+                    </div>
+                    
+                    <!-- Actions: At bottom -->
+                    <div class="recurring-card-actions">
+                        <a href="{{ route('recurring.edit', $recurring) }}" class="btn btn-icon btn-secondary" title="Sửa">
+                            <i class="ri-edit-line"></i>
+                        </a>
+                        <form action="{{ route('recurring.destroy', $recurring) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-icon btn-danger" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
                         </form>
                     </div>
                 </div>

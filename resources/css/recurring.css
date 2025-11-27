@@ -3,8 +3,8 @@
 /* Grid Layout */
 .recurring-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--spacing-xl);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
     padding: 1rem 0;
 }
 
@@ -15,7 +15,7 @@
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: var(--radius-xl);
-    padding: var(--spacing-xl);
+    padding: 1.5rem;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
     position: relative;
@@ -47,20 +47,21 @@
 }
 
 .icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
 
 .transaction-info h3 {
     font-size: 1.1rem;
     font-weight: 600;
     color: #1F2937;
-    margin: 0;
+    margin: 0 0 0.25rem 0;
     line-height: 1.2;
 }
 
@@ -71,55 +72,17 @@
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.8);
     color: #4B5563;
-    margin-top: 0.25rem;
     border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Actions */
-.card-actions {
+/* Actions - Always visible at bottom */
+.recurring-card-actions {
     display: flex;
     gap: 0.5rem;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.glass-card:hover .card-actions {
-    opacity: 1;
-}
-
-.btn-action {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-}
-
-.btn-action.edit {
-    background: rgba(255, 255, 255, 0.8);
-    color: #4B5563;
-    border: 1px solid rgba(0,0,0,0.05);
-}
-
-.btn-action.edit:hover {
-    background: #fff;
-    color: #1F2937;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.btn-action.delete {
-    background: rgba(239, 68, 68, 0.1);
-    color: #EF4444;
-}
-
-.btn-action.delete:hover {
-    background: #EF4444;
-    color: white;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    justify-content: flex-end;
 }
 
 /* Card Body */
@@ -268,6 +231,14 @@ input:checked + .slider:before {
     font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.add-recurring-hint {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-align: center;
+    margin: 0;
 }
 
 /* Empty State */
@@ -292,4 +263,151 @@ input:checked + .slider:before {
     color: #6B7280;
     margin-bottom: 2rem;
     max-width: 500px;
+}
+
+/* ============================================
+   RESPONSIVE - 4 BREAKPOINTS
+   ============================================ */
+
+/* Laptop (769px - 1200px) */
+@media (max-width: 1200px) {
+    .recurring-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+/* Tablet (576px - 768px) - Mobile Card Layout */
+@media (max-width: 768px) {
+    .recurring-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .glass-card {
+        padding: 1.25rem;
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.5);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    
+    /* Header: Stack vertically - No actions here */
+    .card-header-custom {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .card-icon-wrapper {
+        gap: 0;
+        width: 100%;
+    }
+    
+    .icon-box {
+        display: none;
+    }
+    
+    .transaction-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .transaction-info h3 {
+        font-size: 1rem;
+        order: 2;
+        margin-bottom: 0;
+    }
+    
+    .transaction-info .badge {
+        order: 1;
+        padding: 0.375rem 0.875rem;
+        font-size: 0.8125rem;
+    }
+    
+    /* Body */
+    .card-body-custom {
+        margin-bottom: 0;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .amount {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .wallet-info {
+        font-size: 0.9375rem;
+    }
+    
+    /* Footer */
+    .card-footer-custom {
+        margin-top: 1rem;
+        padding-top: 0.875rem;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        margin-bottom: 0;
+    }
+    
+    .next-run {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .next-run label {
+        font-size: 0.875rem;
+    }
+    
+    .next-run span {
+        font-size: 0.9375rem;
+    }
+    
+    /* Actions - Always visible at bottom */
+    .recurring-card-actions {
+        margin-top: 1rem;
+        padding-top: 0.875rem;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        justify-content: flex-end;
+    }
+}
+
+/* Mobile (< 576px) */
+@media (max-width: 575px) {
+    .recurring-grid {
+        gap: 0.75rem;
+    }
+    
+    .glass-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .transaction-info h3 {
+        font-size: 0.9375rem;
+    }
+    
+    .transaction-info .badge {
+        padding: 0.25rem 0.625rem;
+        font-size: 0.75rem;
+    }
+    
+    .amount {
+        font-size: 1.25rem;
+    }
+    
+    .wallet-info {
+        font-size: 0.8125rem;
+    }
+    
+    .next-run label {
+        font-size: 0.75rem;
+    }
+    
+    .next-run span {
+        font-size: 0.8125rem;
+    }
 }

@@ -13,6 +13,7 @@
             <i class="ri-add-line"></i>
         </div>
         <h3 class="add-wallet-text">Thêm ví mới</h3>
+        <p class="add-wallet-hint">Quản lý dòng tiền của bạn</p>
     </a>
 
     @foreach($wallets as $wallet)
@@ -27,20 +28,6 @@
                     <div class="wallet-type">Ví cá nhân</div>
                 </div>
             </div>
-
-            <div class="wallet-actions">
-                <a href="{{ route('wallets.edit', $wallet->id) }}" class="btn-icon-sm" title="Chỉnh sửa">
-                    <i class="ri-pencil-fill"></i>
-                </a>
-                
-                <form action="{{ route('wallets.destroy', $wallet->id) }}" method="POST" class="d-inline" onsubmit="return confirm('CẢNH BÁO: Xóa ví này sẽ xóa tất cả giao dịch liên quan. Bạn có chắc không?')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn-icon-sm danger" title="Xóa ví">
-                        <i class="ri-delete-bin-line"></i>
-                    </button>
-                </form>
-            </div>
         </div>
 
         <div class="wallet-balance-section">
@@ -48,6 +35,20 @@
             <div class="wallet-balance {{ $wallet->balance >= 0 ? 'positive' : 'negative' }}">
                 {{ number_format($wallet->balance, 0, ',', '.') }}₫
             </div>
+        </div>
+        
+        <div class="wallet-actions">
+            <a href="{{ route('wallets.edit', $wallet->id) }}" class="btn btn-icon btn-secondary" title="Chỉnh sửa">
+                <i class="ri-pencil-fill"></i>
+            </a>
+            
+            <form action="{{ route('wallets.destroy', $wallet->id) }}" method="POST" class="d-inline" onsubmit="return confirm('CẢNH BÁO: Xóa ví này sẽ xóa tất cả giao dịch liên quan. Bạn có chắc không?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-icon btn-danger" title="Xóa ví">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            </form>
         </div>
     </div>
     @endforeach
