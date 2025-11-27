@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>QuanLyChiTieu - Quản lý tài chính thông minh</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite(['resources/css/welcome.css'])
 </head>
 <body>
@@ -18,7 +21,9 @@
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <div class="logo-icon"></div>
+                    <div class="logo-icon">
+                        <i class="ri-bar-chart-box-fill" style="color: white; font-size: 20px;"></i>
+                    </div>
                     <span>QuanLyChiTieu</span>
                 </div>
                 <div class="nav-links">
@@ -81,14 +86,18 @@
                 
                 <!-- Floating Widgets -->
                 <div class="floating-widget widget-balance">
-                    <div class="icon-box"></div>
+                    <div class="icon-box">
+                        <i class="ri-wallet-3-line" style="color: #10B981; font-size: 24px;"></i>
+                    </div>
                     <div class="text-box">
                         <span>Tổng số dư</span>
                         <strong>24,500,000₫</strong>
                     </div>
                 </div>
                 <div class="floating-widget widget-growth">
-                    <div class="growth-icon">↑</div>
+                    <div class="growth-icon">
+                        <i class="ri-arrow-up-line" style="color: #3B82F6; font-size: 24px;"></i>
+                    </div>
                     <div class="text-box">
                         <span>Tăng trưởng</span>
                         <strong>+12.5%</strong>
@@ -99,30 +108,36 @@
 
         <section id="features" class="features-section">
             <div class="feature-card">
-                <div class="feature-icon icon-analytics"></div>
-                <h3>Smart Analytics</h3>
-                <p>Visualize your spending habits with beautiful, interactive charts and real-time data.</p>
+                <div class="feature-icon icon-analytics">
+                    <i class="ri-line-chart-line" style="color: #10B981; font-size: 32px;"></i>
+                </div>
+                <h3>Phân tích thông minh</h3>
+                <p>Trực quan hóa thói quen chi tiêu của bạn với biểu đồ tương tác đẹp mắt và dữ liệu theo thời gian thực.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-budget"></div>
-                <h3>Budget Control</h3>
-                <p>Set smart budgets for different categories and get notified before you overspend.</p>
+                <div class="feature-icon icon-budget">
+                    <i class="ri-wallet-3-line" style="color: #3B82F6; font-size: 32px;"></i>
+                </div>
+                <h3>Kiểm soát ngân sách</h3>
+                <p>Thiết lập ngân sách thông minh cho từng danh mục và nhận thông báo trước khi chi tiêu vượt mức.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-secure"></div>
-                <h3>Bank-Grade Security</h3>
-                <p>Your financial data is encrypted and protected with industry-leading security standards.</p>
+                <div class="feature-icon icon-secure">
+                    <i class="ri-shield-check-line" style="color: #F59E0B; font-size: 32px;"></i>
+                </div>
+                <h3>Bảo mật cấp ngân hàng</h3>
+                <p>Dữ liệu tài chính của bạn được mã hóa và bảo vệ với tiêu chuẩn bảo mật hàng đầu trong ngành.</p>
             </div>
         </section>
 
         <footer style="margin-top: 5rem; padding: 3rem 0; border-top: 1px solid #eee;">
     <div class="container" style="text-align: center;">
         <div style="margin-bottom: 1.5rem;">
-            <a href="#" style="margin: 0 15px; color: #666; text-decoration: none;">Privacy Policy</a>
-            <a href="#" style="margin: 0 15px; color: #666; text-decoration: none;">Terms of Service</a>
-            <a href="#" style="margin: 0 15px; color: #666; text-decoration: none;">Contact Support</a>
+            <a href="#" style="margin: 0 15px; color: #666; text-decoration: none;">Chính sách bảo mật</a>
+            <a href="#" style="margin: 0 15px; color: #666; text-decoration: none;">Điều khoản dịch vụ</a>
+            <a href="#" style="margin: 0 15px; color: #666; text-decoration: none;">Hỗ trợ</a>
         </div>
-        <p style="color: #999;">&copy; 2025 QuanLyChiTieu. Crafted with ❤️ for financial freedom.</p>
+        <p style="color: #999;">&copy; 2025 QuanLyChiTieu. Được tạo ra với ❤️ vì sự tự do tài chính.</p>
     </div>
 </footer>
     </div>

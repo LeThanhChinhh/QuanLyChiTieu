@@ -58,7 +58,15 @@ class ProfileController extends Controller
     {
         $validated = $request->validate([
             'current_password' => ['required', 'current_password'], // Laravel tự check pass cũ
-            'password' => ['required', 'confirmed', 'min:8'], // 'confirmed' tự check field password_confirmation
+            'password' => [
+                'required',
+                'confirmed',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/'
+            ],
+        ], [
+            'password.regex' => 'Mật khẩu phải chứa ít nhất: 1 chữ thường, 1 chữ HOA, 1 số và 1 ký tự đặc biệt (@$!%*?&#)',
+            'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự',
         ]);
 
         $request->user()->update([

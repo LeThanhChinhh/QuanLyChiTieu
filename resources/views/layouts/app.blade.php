@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Quản lý tài chính')</title>
     
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
+    
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
@@ -25,7 +28,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <h2>
-                    <i class="ri-wallet-3-line"></i>
+                    <i class="ri-bar-chart-box-line"></i>
                     <span>Quản lý tài chính</span>
                 </h2>
             </div>

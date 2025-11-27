@@ -21,7 +21,15 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
+            'password' => [
+                'required',
+                'min:8',
+                'confirmed',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/'
+            ],
+        ], [
+            'password.regex' => 'Mật khẩu phải chứa ít nhất: 1 chữ thường, 1 chữ HOA, 1 số và 1 ký tự đặc biệt (@$!%*?&#)',
+            'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự',
         ]);
 
         // Tạo user mới

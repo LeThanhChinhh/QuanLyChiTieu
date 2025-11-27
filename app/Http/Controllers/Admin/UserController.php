@@ -37,4 +37,22 @@ class UserController extends Controller
         $status = $user->is_active ? 'Mở khóa' : 'Khóa';
         return back()->with('success', "Đã {$status} tài khoản {$user->name} thành công.");
     }
+
+    public function destroy(User $user)
+    {
+        // Prevent deleting self
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'Bạn không thể xóa tài khoản của chính mình.');
+        }
+
+        // Prevent deleting other admins
+        if ($user->role === 'admin') {
+            return back()->with('error', 'Không thể xóa tài khoản Admin khác.');
+        }
+
+        $userName = $user->name;
+        $user->delete();
+
+        return back()->with('success', "Đã xóa tài khoản {$userName} thành công.");
+    }
 }

@@ -22,7 +22,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <h2>
-                    <i class="ri-shield-keyhole-line"></i>
+                    <i class="ri-bar-chart-box-line"></i>
                     <span>Admin Panel</span>
                 </h2>
             </div>

@@ -81,6 +81,15 @@
                                     @endif
                                 </button>
                             </form>
+                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-icon btn-danger"
+                                        onclick="return confirmSubmit(event, 'Bạn có chắc chắn muốn XÓA VĨNH VIỄN tài khoản này? Hành động này KHÔNG THỂ HOÀN TÁC!')"
+                                        title="Xóa tài khoản">
+                                    <i class="ri-delete-bin-line"></i>
+                                </button>
+                            </form>
                         @endif
                     </td>
                 </tr>

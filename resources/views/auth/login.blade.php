@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - Quản lý tài chính</title>
     
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
+    
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     
@@ -17,7 +20,7 @@
 
     <div class="auth-container">
         <div class="auth-brand">
-            <i class="ri-wallet-3-fill"></i>
+            <i class="ri-bar-chart-box-fill"></i>
             <span>Quản lý tài chính</span>
         </div>
 

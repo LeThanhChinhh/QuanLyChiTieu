@@ -67,7 +67,7 @@ background: rgba(255, 255, 255, 0.2);
     padding: 1rem 0;
 }
 .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.25rem; }
-.logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; }
+.logo-icon { width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 .nav-links { display: flex; gap: 1.5rem; align-items: center; }
 .nav-link { text-decoration: none; color: var(--dark); font-weight: 500; }
 .btn { padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; display: inline-block; }
@@ -206,7 +206,7 @@ background: rgba(255, 255, 255, 0.2);
     animation-delay: 3s;
 }
 
-.icon-box { width: 40px; height: 40px; background: #DEF7EC; border-radius: 10px; }
+.icon-box { width: 40px; height: 40px; background: #DEF7EC; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
 .growth-icon { width: 40px; height: 40px; background: #DBEAFE; color: var(--secondary); display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: bold; }
 .text-box { display: flex; flex-direction: column; }
 .text-box span { font-size: 0.8rem; color: #6B7280; }
