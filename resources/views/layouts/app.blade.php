@@ -69,6 +69,11 @@
                         <i class="ri-folder-3-line"></i> <span>Danh mục</span>
                     </a>
                 </div>
+                <div class="nav-item">
+                    <a href="{{ route('help.index') }}" class="nav-link {{ request()->routeIs('help.*') ? 'active' : '' }}">
+                        <i class="ri-question-line"></i> <span>Hướng dẫn</span>
+                    </a>
+                </div>
             </nav>
         </aside>
 

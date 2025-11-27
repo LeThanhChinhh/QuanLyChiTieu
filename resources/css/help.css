@@ -1,0 +1,371 @@
+/* ========================================
+   HELP PAGE STYLES
+   ======================================== */
+
+.help-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+.help-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 24px;
+    color: white;
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+}
+
+.help-header-content i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.help-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.help-header p {
+    font-size: 1.125rem;
+    opacity: 0.95;
+}
+
+/* Section */
+.help-section {
+    margin-bottom: 3rem;
+}
+
+.help-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary);
+}
+
+.help-section h2 i {
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+/* Quick Start Steps */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.step-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto 1.5rem;
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+.step-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.step-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Guide Grid */
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.guide-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.guide-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.guide-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1.25rem;
+}
+
+.dashboard-color { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+.wallet-color { background: linear-gradient(135deg, #10B981, #059669); }
+.transaction-color { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
+.budget-color { background: linear-gradient(135deg, #F59E0B, #D97706); }
+.recurring-color { background: linear-gradient(135deg, #06B6D4, #0891B2); }
+.calendar-color { background: linear-gradient(135deg, #EC4899, #DB2777); }
+.category-color { background: linear-gradient(135deg, #6366F1, #4F46E5); }
+.profile-color { background: linear-gradient(135deg, #14B8A6, #0D9488); }
+
+.guide-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.guide-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.guide-card ul li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.guide-card ul li::before {
+    content: "✓";
+    color: var(--primary);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.guide-card ul li strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Tips */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+}
+
+.tip-card {
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.tip-card i {
+    font-size: 2.5rem;
+    color: #D97706;
+    margin-bottom: 1rem;
+}
+
+.tip-card h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #78350F;
+    margin-bottom: 0.5rem;
+}
+
+.tip-card p {
+    color: #92400E;
+    line-height: 1.5;
+}
+
+/* FAQ */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.faq-item {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid var(--primary);
+}
+
+.faq-item h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.faq-item h4::before {
+    content: "Q:";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.faq-item p strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Support Section */
+.support-section {
+    margin-top: 4rem;
+}
+
+.support-card {
+    background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    border: 2px solid #BAE6FD;
+}
+
+.support-card i {
+    font-size: 4rem;
+    color: #0284C7;
+    margin-bottom: 1.5rem;
+}
+
+.support-card h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0C4A6E;
+    margin-bottom: 0.75rem;
+}
+
+.support-card p {
+    font-size: 1.125rem;
+    color: #075985;
+    margin-bottom: 2rem;
+}
+
+.support-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-outline {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .help-container {
+        padding: 1rem;
+    }
+
+    .help-header {
+        padding: 2rem 1.5rem;
+    }
+
+    .help-header h1 {
+        font-size: 2rem;
+    }
+
+    .help-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .steps-grid,
+    .guide-grid,
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .support-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .support-actions {
+        flex-direction: column;
+    }
+
+    .support-actions .btn {
+        width: 100%;
+    }
+}

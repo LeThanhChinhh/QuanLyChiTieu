@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RecurringTransactionController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\HelpController;
 
 // Trang chủ
 Route::get('/', function () {
@@ -47,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password');
+
+    // Help Page
+    Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 
     // --- ADMIN PANEL ---
     Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
