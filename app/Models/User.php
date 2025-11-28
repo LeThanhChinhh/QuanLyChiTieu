@@ -67,4 +67,30 @@ class User extends Authenticatable
     public function budgets() {
         return $this->hasMany(Budget::class);
     }
+
+    // Group relationships
+    public function groups() {
+        return $this->belongsToMany(Group::class, 'group_members')
+            ->withPivot('role', 'status', 'joined_at', 'left_at')
+            ->withTimestamps();
+    }
+
+    public function groupMemberships() {
+        return $this->hasMany(GroupMember::class);
+    }
+
+    public function activeGroups() {
+        return $this->belongsToMany(Group::class, 'group_members')
+            ->wherePivot('status', 'active')
+            ->withPivot('role', 'status', 'joined_at')
+            ->withTimestamps();
+    }
+
+    public function createdGroups() {
+        return $this->hasMany(Group::class, 'created_by');
+    }
+
+    public function groupExpenses() {
+        return $this->hasMany(GroupExpense::class, 'paid_by_user_id');
+    }
 }

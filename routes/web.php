@@ -10,6 +10,10 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RecurringTransactionController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\GroupMemberController;
+use App\Http\Controllers\GroupExpenseController;
+use App\Http\Controllers\GroupSettlementController;
 
 // Trang chủ
 Route::get('/', function () {
@@ -75,4 +79,26 @@ Route::middleware('auth')->group(function () {
     // Calendar
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
     Route::get('/calendar/events', [CalendarController::class, 'events'])->name('calendar.events');
+
+    // Groups - Chi tiêu nhóm
+    Route::resource('groups', GroupController::class);
+    
+    // Group Members
+    Route::get('/groups/{group}/members', [GroupMemberController::class, 'index'])->name('groups.members.index');
+    Route::post('/groups/{group}/members', [GroupMemberController::class, 'store'])->name('groups.members.store');
+    Route::patch('/groups/{group}/members/{member}/role', [GroupMemberController::class, 'updateRole'])->name('groups.members.update-role');
+    Route::delete('/groups/{group}/members/{member}', [GroupMemberController::class, 'destroy'])->name('groups.members.destroy');
+    
+    // Group Expenses
+    Route::get('/groups/{group}/expenses', [GroupExpenseController::class, 'index'])->name('groups.expenses.index');
+    Route::get('/groups/{group}/expenses/create', [GroupExpenseController::class, 'create'])->name('groups.expenses.create');
+    Route::post('/groups/{group}/expenses', [GroupExpenseController::class, 'store'])->name('groups.expenses.store');
+    Route::get('/groups/{group}/expenses/{expense}', [GroupExpenseController::class, 'show'])->name('groups.expenses.show');
+    Route::delete('/groups/{group}/expenses/{expense}', [GroupExpenseController::class, 'destroy'])->name('groups.expenses.destroy');
+    
+    // Group Settlements
+    Route::get('/groups/{group}/settlements', [GroupSettlementController::class, 'index'])->name('groups.settlements.index');
+    Route::get('/groups/{group}/settlements/create', [GroupSettlementController::class, 'create'])->name('groups.settlements.create');
+    Route::post('/groups/{group}/settlements', [GroupSettlementController::class, 'store'])->name('groups.settlements.store');
+    Route::delete('/groups/{group}/settlements/{settlement}', [GroupSettlementController::class, 'destroy'])->name('groups.settlements.destroy');
 });

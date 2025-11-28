@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
     
-    @vite(['resources/css/common.css', 'resources/css/layout.css'])
+    @vite(['resources/css/common.css', 'resources/css/layout.css', 'resources/css/groups.css'])
     @yield('styles')
     @vite(['resources/js/app.js'])
 </head>
@@ -62,6 +62,11 @@
                 <div class="nav-item">
                     <a href="{{ route('budgets.index') }}" class="nav-link {{ request()->routeIs('budgets.*') ? 'active' : '' }}">
                         <i class="ri-pie-chart-2-line"></i> <span>Ngân sách</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="{{ route('groups.index') }}" class="nav-link {{ request()->routeIs('groups.*') ? 'active' : '' }}">
+                        <i class="ri-team-line"></i> <span>Nhóm chi tiêu</span>
                     </a>
                 </div>
                 <div class="nav-item">
