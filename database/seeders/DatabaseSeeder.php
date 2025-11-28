@@ -15,18 +15,48 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
+        // Create Admin User
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'role' => 'admin',
             'password' => bcrypt('password'),
         ]);
+
+        // Create Regular Users for testing
+        User::factory()->create([
+            'name' => 'Nguyễn Văn A',
+            'email' => 'vana@example.com',
+            'role' => 'user',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::factory()->create([
+            'name' => 'Trần Thị B',
+            'email' => 'thib@example.com',
+            'role' => 'user',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::factory()->create([
+            'name' => 'Lê Văn C',
+            'email' => 'levanc@example.com',
+            'role' => 'user',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'role' => 'user',
+            'password' => bcrypt('password'),
+        ]);
+
+        $this->command->info('✅ Created 5 test users:');
+        $this->command->info('   👤 Admin: admin@example.com / password (role: admin)');
+        $this->command->info('   👤 User: vana@example.com / password');
+        $this->command->info('   👤 User: thib@example.com / password');
+        $this->command->info('   👤 User: levanc@example.com / password');
+        $this->command->info('   👤 User: test@example.com / password');
     }
 }
